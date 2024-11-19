@@ -18,10 +18,7 @@ export default function TargetBox ({selectedX,selectedY,handleFind}){
             <div className="box"></div>
             <div className="dropdown">
                 <div onClick={handleFind}>Wally</div>
-                <div onClick={handleFind}>Woof</div>
                 <div onClick={handleFind}>Wenda</div>
-                <div onClick={handleFind}>Wizard</div>
-                <div onClick={handleFind}>Odlaw</div>
 
             </div>
         </div>

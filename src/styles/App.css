@@ -4,7 +4,7 @@
   padding:2rem;
   text-align: center;
   font-family: "Host Grotesk", sans-serif;
-  position: relative;
+
   height: 100%;
   box-sizing: border-box;
 
@@ -12,23 +12,28 @@
 body{
   margin: 0;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 img.wally{
-  height: 75vh;
+  height: 100%;
 }
 img.characters{
-  width: 300px;
+  width: 50px;
 }
 .header{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
+.imageContainer{
+  height: 85vh;
+  position: relative;
+  max-width: fit-content;
+  margin:0 auto;
+  
+}
 .selectedArea{
-
-  position:absolute;
+  position:fixed;
 }
 .box{
   width:25px;
