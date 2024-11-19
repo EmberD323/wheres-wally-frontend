@@ -2,47 +2,39 @@ import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TargetBox from "./Partials/TargetBox";
 import wally from "../assets/wally.jpg"
+import characters from "../assets/characters3.jpg"
+
 
 export default function HomePage (){
     //const [posts,setPosts,token,setToken,edit,setEdit,users,setUsers] = useOutletContext();
     const [selectedX,setselectedX]=useState(null);
     const [selectedY,setselectedY]=useState(null);
-    const [firstClick,setfirstClick]=useState(true);
-
 
     function handleImageClick(e){
         if(selectedX==null){
-            //add box and dropdown
-            // if (firstClick == true) {
-            //     offsetX = e.pageX - $('#PopUpTitleBar').offset().left;
-            //     console.log(offsetX)
-            //     offsetY = e.pageY - $('#PopUpTitleBar').offset().top;
-            //     console.log(offsetY)
-
-            //     //firstClick = false;
-            // }
-
-            setselectedX(e.clientX)
-            setselectedY(e.clientY)
-            console.log(e.clientX,e.clientY)
-            console.log(e.screenX,e.screenY)
-
-
+            setselectedX(e.clientX);
+            setselectedY(e.clientY);
         }else{
-            setselectedX(null)
-            setselectedY(null)
+            setselectedX(null);
+            setselectedY(null);
             //remove box and dropdown
         }
+    }
+    function handleFind(e){
+        console.log(e.target.textContent)
     }
   
     return (
         <>
-        
-        <TargetBox selectedX={selectedX} selectedY={selectedY}></TargetBox>
+        <TargetBox selectedX={selectedX} selectedY={selectedY} handleFind={handleFind}></TargetBox>
         <div className="homepage">
-            <h2>Wheres Waldo</h2>
-            <h3>Include pics of what they are looking for</h3>
-            <img src={wally} alt="wheres-wally" onClick={handleImageClick}/>
+            <div className="header">
+                <h2>Wheres Waldo</h2>
+                
+                <img class="characters" src={characters} alt="characters"/>
+            </div>
+            <div>Find all 5 characters: Wally,Woof,Wenda,Wizard and Odlaw</div>
+            <img class="wally" src={wally} alt="wheres-wally" onClick={handleImageClick}/>
         </div>
         </>
     )
