@@ -33,7 +33,7 @@ img.characters{
   
 }
 .selectedArea{
-  position:fixed;
+  position:absolute;
 }
 .box{
   width:25px;

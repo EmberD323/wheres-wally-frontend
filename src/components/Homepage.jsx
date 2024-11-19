@@ -9,33 +9,24 @@ export default function HomePage (){
     //const [posts,setPosts,token,setToken,edit,setEdit,users,setUsers] = useOutletContext();
     const [selectedX,setselectedX]=useState(null);
     const [selectedY,setselectedY]=useState(null);
-    // const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-    // function getWindowDimensions() {
-    //     const { innerWidth: width, innerHeight: height } = window;
-    //     return {
-    //       width,
-    //       height
-    //     };
-    // }
-    // useEffect(() => {
-    //     function handleResize() {
-    //     setWindowDimensions(getWindowDimensions());
-    //     }
+    const [answers,setAnswers]=useState(null);
 
-    //     window.addEventListener('resize', handleResize);
-    //     return () => window.removeEventListener('resize', handleResize);
-    // }, []);
-    // let {width,height} = windowDimensions;
+    //fetch answers
+    useEffect(()=>{
+        fetch("https://wheres-wally-backend.onrender.com/characters",{
+        method: "GET",
+        mode:"cors"
+        })
+        .then((response)=>response.json())
+        .then((json)=>setAnswers(json))
+    },[])
 
     function handleImageClick(e){
         if(selectedX==null){
-            const boundaryX = e.target.offsetLeft;//distance from left of screen to image
-            const boundaryY = e.target.offsetTop;//distance from top of screen to image
+            const boundaryX = e.target.parentNode.offsetLeft;//distance from left of screen to image
+            const boundaryY = e.target.parentNode.offsetTop;//distance from top of screen to image
             const imagePositionX = e.clientX - boundaryX;
             const imagePositionY = e.clientY - boundaryY;
-            console.log(imagePositionX,imagePositionY)
-
-
             setselectedX(imagePositionX);
             setselectedY(imagePositionY);
         }else{
@@ -45,7 +36,30 @@ export default function HomePage (){
         }
     }
     function handleFind(e){
-        console.log(e.target.textContent)
+        const characterSelected = e.target.textContent;
+        console.log(answers)
+        console.log(selectedX,selectedY,characterSelected)
+        for(let i=0;i<answers.length;i++){
+            if(answers[i].x >= selectedX-12.5 && answers[i].x <= selectedX+12.5){
+                if(answers[i].y >= selectedY-12.5 && answers[i].y <= selectedY+12.5){
+                    if(answers[i].character == characterSelected){
+                        console.log("you found me!")
+                        break
+                    }
+                    else{
+                        console.log("wrong character")
+
+                    }
+                
+                }else{
+                    console.log("no character y")
+                }
+            }
+            else{
+                console.log("no character x")
+            }
+        }
+       
     }
   
     return (
