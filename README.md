@@ -5,3 +5,5 @@ run app
 1) npm install
 2) npm run dev http://localhost:5173/
 
+prisma
+prisma migrate dev --name name

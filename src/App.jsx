@@ -1,23 +1,25 @@
-
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import "./styles/App.css"
+import { Outlet } from "react-router-dom";
 
 const App = () => {
-  const [heading, setHeading] = useState("Magnificent Monkeys");
+  // const [posts,setPosts]=useState(null);
+  // const [error,setError]=useState(null);
+  // const [loading,setLoading] = useState(true);
+  // const initalToken = localStorage.getItem("token");
+  // const [token,setToken] = useState(initalToken);
+  // const [edit,setEdit] = useState(true);
+  // const [users,setUsers] = useState(null);
 
-  const clickHandler = () => {
-    setHeading("Radical Rhinos");
-  };
 
+
+  // if(error) return <p>Error</p>
+  // if(loading) return <p>Loading</p>
   return (
     <>
-      <button type="button" onClick={clickHandler}>
-        Click Me
-      </button>
-      <h1>{heading}</h1>
+      <Outlet context={[]}/>
     </>
   );
 };
 
 export default App;
-
