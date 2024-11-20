@@ -24,10 +24,17 @@ export default function HomePage (){
 
     function handleImageClick(e){
         if(selectedX==null){
+            let scrollHeight = window.scrollY;
             const boundaryX = e.target.parentNode.offsetLeft;//distance from left of screen to image
             const boundaryY = e.target.parentNode.offsetTop;//distance from top of screen to image
-            const imagePositionX = e.clientX - boundaryX;
-            const imagePositionY = e.clientY - boundaryY;
+            let imagePositionX,imagePositionY
+            if(scrollHeight > 0){
+                imagePositionY = e.clientY - boundaryY +scrollHeight;
+            }
+            else{
+                imagePositionY = e.clientY - boundaryY;
+            }
+            imagePositionX = e.clientX - boundaryX;            
             setselectedX(imagePositionX);
             setselectedY(imagePositionY);
         }else{
@@ -37,27 +44,27 @@ export default function HomePage (){
         }
     }
     function handleFind(e){
-        const characterSelected = e.target.textContent;
-        for(let i=0;i<answers.length;i++){
-            if(answers[i].x >= selectedX-12.5 && answers[i].x <= selectedX+12.5){
-                if(answers[i].y >= selectedY-12.5 && answers[i].y <= selectedY+12.5){
-                    if(answers[i].character == characterSelected){
-                        console.log("you found me!")
-                        break
-                    }
-                    else{
-                        console.log("wrong character")
+        // const characterSelected = e.target.textContent;
+        // for(let i=0;i<answers.length;i++){
+        //     if(answers[i].x >= selectedX-12.5 && answers[i].x <= selectedX+12.5){
+        //         if(answers[i].y >= selectedY-12.5 && answers[i].y <= selectedY+12.5){
+        //             if(answers[i].character == characterSelected){
+        //                 console.log("you found me!")
+        //                 break
+        //             }
+        //             else{
+        //                 console.log("wrong character")
 
-                    }
+        //             }
                 
-                }else{
-                    console.log("no character y")
-                }
-            }
-            else{
-                console.log("no character x")
-            }
-        }
+        //         }else{
+        //             console.log("no character y")
+        //         }
+        //     }
+        //     else{
+        //         console.log("no character x")
+        //     }
+        // }
        
     }
   

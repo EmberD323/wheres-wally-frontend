@@ -3,6 +3,7 @@ import { func } from "prop-types";
 export default function TargetBox ({selectedX,selectedY,handleFind}){
     let positionX = selectedX - 12.5;
     let positionY = selectedY - 12.5;
+    console.log(positionX,positionY)
 
     const mystyle = {
       left:positionX+"px",
