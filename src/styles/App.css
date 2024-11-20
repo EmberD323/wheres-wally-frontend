@@ -35,11 +35,25 @@ img.characters{
 .selectedArea{
   position:absolute;
 }
+.foundAreaWally#true,.foundAreaWenda#true{
+  position:absolute;
+}
+.foundAreaWally#false,.foundAreaWenda#false{
+  display: none;
+}
+.foundBox{
+  width:25px;
+  height: 25px;
+  border: 2px rgb(5, 5, 5) solid;
+  background-color: rgb(255, 54, 47);
+  opacity: 50%;
+}
 .box{
   width:25px;
   height: 25px;
   border: 2px red solid;
 }
+
 .dropdown{
   display: none;
   background-color: grey;

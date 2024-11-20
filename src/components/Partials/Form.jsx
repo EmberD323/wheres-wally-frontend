@@ -5,7 +5,7 @@ import Errors from "./Errors";
 
 
 
-export default function Form ({timer,numberFound}){
+export default function Form ({timer,wendaFound,wallyFound}){
     let formOpen;
     const[name,setName] = useState("");
     const[formErrors,setFormErrors] = useState(null);
@@ -35,7 +35,7 @@ export default function Form ({timer,numberFound}){
         setName(e.target.value)
     }
     
-    if(numberFound==2){
+    if(wallyFound && wendaFound){
         formOpen = "true";
     }
     else{

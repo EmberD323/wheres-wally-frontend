@@ -1,6 +1,8 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TargetBox from "./Partials/TargetBox";
+import CharactersFound from "./Partials/CharactersFound";
+
 import Form from "./Partials/Form";
 
 import wally from "../assets/wally.jpg"
@@ -15,17 +17,19 @@ export default function HomePage (){
     const [answers,setAnswers]=useState(null);
     const [result,setResult]=useState(null)
     const [timer, setTimer] = useState(0);
-    const [pause, setPause] = useState(false);
-    const [numberFound,setNumberFound] = useState(0);
-
+    const [imageHeight, setImageHeight] = useState(0);
+    const [imageWidth, setImageWidth] = useState(0);
+    const [wallyFound,setWallyFound] = useState(false);
+    const [wendaFound,setWendaFound] = useState(false);
+    setImageHeight
     useEffect(() => {
         const interval = setInterval(() => {
-            if(!pause){
+            if(wallyFound == false || wendaFound == false){
                 setTimer(prev => prev + 1);
             }
         }, 1000);
         return () => clearInterval(interval);
-    }, [pause]);
+    }, [wallyFound,wendaFound]);
 
     //fetch answers
     useEffect(()=>{
@@ -34,13 +38,14 @@ export default function HomePage (){
         mode:"cors"
         })
         .then((response)=>response.json())
-        .then((json)=>setAnswers(json))
+        .then((json)=>  setAnswers(json))
         .catch((error)=>console.log(error))
-    },[pause])
+    },[])
 
     function handleImageClick(e){
-        if(numberFound >= 2){return}
+        if(wallyFound && wendaFound){return}
         if(selectedX==null){
+
             let scrollHeight = window.scrollY;
             const boundaryX = e.target.parentNode.offsetLeft;//distance from left of screen to image
             const boundaryY = e.target.parentNode.offsetTop;//distance from top of screen to image
@@ -62,21 +67,27 @@ export default function HomePage (){
     }
     function handleFind(e){
         const imageContainer = e.currentTarget.parentNode.parentNode.parentNode;
-        let imageHeight = imageContainer.getBoundingClientRect().height;
-        let imageWidth = imageContainer.getBoundingClientRect().width;
+        let imageHeight1 = imageContainer.getBoundingClientRect().height;
+        console.log(imageHeight1)
+        setImageHeight(imageHeight1)
+        let imageWidth1 = imageContainer.getBoundingClientRect().width;
+        setImageWidth(imageWidth1)
+        console.log(imageWidth1)
         const characterSelected = e.target.textContent;
         //check coordinates and characters against selected
         for(let i=0;i<answers.length;i++){
-            if((answers[i].x*imageWidth)/100 >= selectedX-12.5 && (answers[i].x*imageWidth)/100 <= selectedX+12.5){
-                if((answers[i].y*imageHeight)/100 >= selectedY-12.5 && (answers[i].y*imageHeight)/100 <= selectedY+12.5){
+            if((answers[i].x*imageWidth1)/100 >= selectedX-12.5 && (answers[i].x*imageWidth1)/100 <= selectedX+12.5){
+                if((answers[i].y*imageHeight1)/100 >= selectedY-12.5 && (answers[i].y*imageHeight1)/100 <= selectedY+12.5){
                     if(answers[i].character == characterSelected){
-                        setNumberFound(numberFound+1)
-                        if(numberFound >= 1){
-                            setPause(!pause)
-                            setResult("You found " +characterSelected +", and won the game in a time of "+ timer +" seconds.")
-                            break
+                        console.log(characterSelected)
+                        if(characterSelected=="Wally"){
+                            setWallyFound(true)
+                        }
+                        else{
+                            setWendaFound(true)
                         }
                         setResult("You found " +characterSelected)
+                        
                         break
                     }
                     else{
@@ -92,7 +103,6 @@ export default function HomePage (){
             }
         }
     }
-  
     return (
         <>
         <div className="homepage">
@@ -107,8 +117,10 @@ export default function HomePage (){
             <div className="imageContainer">
                 <img className="wally" src={wally} alt="wheres-wally" onClick={handleImageClick}/>
                 <TargetBox selectedX={selectedX} selectedY={selectedY} handleFind={handleFind}></TargetBox>
+                <CharactersFound answers={answers} wallyFound={wallyFound} wendaFound={wendaFound} imageHeight={imageHeight} imageWidth={imageWidth}/>
             </div>
-            <Form timer={timer} numberFound={numberFound}></Form>
+            <Form timer={timer} wendaFound={wendaFound} wallyFound={wallyFound}></Form>
+            
         </div>
         </>
     )
