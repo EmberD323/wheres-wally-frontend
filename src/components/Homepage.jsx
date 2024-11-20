@@ -1,6 +1,8 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TargetBox from "./Partials/TargetBox";
+import Form from "./Partials/Form";
+
 import wally from "../assets/wally.jpg"
 import characters from "../assets/waldoandwenda.jpeg"
 import { number } from "prop-types";
@@ -91,19 +93,15 @@ export default function HomePage (){
                 setResult("Nope, " +characterSelected + " isn't in the box");
             }
         }
-       
     }
   
     return (
         <>
-        
         <div className="homepage">
             <div className="header">
                 <div>{timer}</div>
-                
                 <h2>Wheres Wally</h2>
                 <img class="characters" src={characters} alt="characters"/>
-
             </div>
             <div>Find Wally and Wenda</div>
             <div>{result}</div>
@@ -111,6 +109,7 @@ export default function HomePage (){
                 <img class="wally" src={wally} alt="wheres-wally" onClick={handleImageClick}/>
                 <TargetBox selectedX={selectedX} selectedY={selectedY} handleFind={handleFind}></TargetBox>
             </div>
+            <Form timer={timer} numberFound={numberFound}></Form>
         </div>
         </>
     )

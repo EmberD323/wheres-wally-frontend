@@ -1,4 +1,3 @@
-import { func } from "prop-types";
 
 export default function TargetBox ({selectedX,selectedY,handleFind}){
     let positionX = selectedX - 12.5;

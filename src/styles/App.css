@@ -48,3 +48,18 @@ img.characters{
   display: block;
 }
 .dropdown div:hover {background-color: #ddd;}
+
+
+.form-container#true {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%, 50%);
+  background-color: white;
+  padding: 25px;
+}
+.form-container#false {
+  display: none;
+}
+
