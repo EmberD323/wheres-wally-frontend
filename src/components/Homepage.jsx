@@ -20,6 +20,7 @@ export default function HomePage (){
         })
         .then((response)=>response.json())
         .then((json)=>setAnswers(json))
+        .catch((error)=>console.log(error))
     },[])
 
     function handleImageClick(e){
@@ -34,9 +35,10 @@ export default function HomePage (){
             else{
                 imagePositionY = e.clientY - boundaryY;
             }
-            imagePositionX = e.clientX - boundaryX;            
+            imagePositionX = e.clientX - boundaryX;   
+            console.log(imagePositionX,imagePositionY)         
             setselectedX(imagePositionX);
-            setselectedY(imagePositionY);
+            setselectedY(imagePositionY)
         }else{
             setselectedX(null);
             setselectedY(null);
@@ -44,27 +46,36 @@ export default function HomePage (){
         }
     }
     function handleFind(e){
-        // const characterSelected = e.target.textContent;
-        // for(let i=0;i<answers.length;i++){
-        //     if(answers[i].x >= selectedX-12.5 && answers[i].x <= selectedX+12.5){
-        //         if(answers[i].y >= selectedY-12.5 && answers[i].y <= selectedY+12.5){
-        //             if(answers[i].character == characterSelected){
-        //                 console.log("you found me!")
-        //                 break
-        //             }
-        //             else{
-        //                 console.log("wrong character")
+        const imageContainer = e.currentTarget.parentNode.parentNode.parentNode;
+        let imageHeight = imageContainer.getBoundingClientRect().height;
+        let imageWidth = imageContainer.getBoundingClientRect().width;
+        console.log(answers)
+        console.log(imageHeight,imageWidth)
+        console.log(selectedX,selectedY)
+        console.log(answers[0].x)
+        console.log((answers[0].x*imageWidth)/100)
+        const characterSelected = e.target.textContent;
+        for(let i=0;i<answers.length;i++){
+            if((answers[i].x*imageWidth)/100 >= selectedX-12.5 && (answers[i].x*imageWidth)/100 <= selectedX+12.5){
+                if((answers[i].y*imageHeight)/100 >= selectedY-12.5 && (answers[i].y*imageHeight)/100 <= selectedY+12.5){
+                    if(answers[i].character == characterSelected){
+                        console.log("you found me!")
+                        break
+                    }
+                    else{
+                        console.log("wrong character")
+                        
 
-        //             }
+                    }
                 
-        //         }else{
-        //             console.log("no character y")
-        //         }
-        //     }
-        //     else{
-        //         console.log("no character x")
-        //     }
-        // }
+                }else{
+                    console.log("no character y")
+                }
+            }
+            else{
+                console.log("no character x")
+            }
+        }
        
     }
   
