@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import TargetBox from "./Partials/TargetBox";
 import wally from "../assets/wally.jpg"
 import characters from "../assets/waldoandwenda.jpeg"
+import { number } from "prop-types";
 
 
 export default function HomePage (){
@@ -13,6 +14,7 @@ export default function HomePage (){
     const [result,setResult]=useState(null)
     const [timer, setTimer] = useState(0);
     const [pause, setPause] = useState(false);
+    const [numberFound,setNumberFound] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,6 +37,7 @@ export default function HomePage (){
     },[pause])
 
     function handleImageClick(e){
+        if(numberFound >= 2){return}
         if(selectedX==null){
             let scrollHeight = window.scrollY;
             const boundaryX = e.target.parentNode.offsetLeft;//distance from left of screen to image
@@ -61,27 +64,31 @@ export default function HomePage (){
         let imageHeight = imageContainer.getBoundingClientRect().height;
         let imageWidth = imageContainer.getBoundingClientRect().width;
         const characterSelected = e.target.textContent;
+        //check coordinates and characters against selected
         for(let i=0;i<answers.length;i++){
             if((answers[i].x*imageWidth)/100 >= selectedX-12.5 && (answers[i].x*imageWidth)/100 <= selectedX+12.5){
                 if((answers[i].y*imageHeight)/100 >= selectedY-12.5 && (answers[i].y*imageHeight)/100 <= selectedY+12.5){
                     if(answers[i].character == characterSelected){
-                        console.log("you found me!")
-                        setPause(!pause)
-                        console.log(timer)
+                        setNumberFound(numberFound+1)
+                        console.log(numberFound)
+                        if(numberFound >= 1){
+                            setPause(!pause)
+                            setResult("You found " +characterSelected +", and won the game in a time of "+ timer +" seconds.")
+                            break
+                        }
+                        setResult("You found " +characterSelected)
                         break
                     }
                     else{
-                        console.log("wrong character")
-
-
+                        setResult("Nope, " +characterSelected + " isn't in the box");
                     }
                 
                 }else{
-                    console.log("no character y")
+                    setResult("Nope, " +characterSelected + " isn't in the box");
                 }
             }
             else{
-                console.log("no character x")
+                setResult("Nope, " +characterSelected + " isn't in the box");
             }
         }
        
