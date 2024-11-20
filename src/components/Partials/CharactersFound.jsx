@@ -1,6 +1,8 @@
 
 export default function CharactersFound ({answers,wallyFound,wendaFound,imageHeight,imageWidth}){
-    if(answers ==null ||imageHeight==null || imageWidth==null ) return;
+    if(answers ==null ||imageHeight==null || imageWidth==null  ) return;
+    if(wallyFound == false && wendaFound == false  ) return;
+
     const mystyle1 = {
       left:answers[0].x*imageWidth/100 - 12.5+"px",
       top:answers[0].y*imageHeight/100 - 12.5+"px"

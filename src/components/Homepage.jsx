@@ -2,13 +2,9 @@ import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TargetBox from "./Partials/TargetBox";
 import CharactersFound from "./Partials/CharactersFound";
-
 import Form from "./Partials/Form";
-
 import wally from "../assets/wally.jpg"
 import characters from "../assets/waldoandwenda.jpeg"
-import { number } from "prop-types";
-
 
 export default function HomePage (){
     // const [timer,setTimer] = useOutletContext();
@@ -21,7 +17,7 @@ export default function HomePage (){
     const [imageWidth, setImageWidth] = useState(0);
     const [wallyFound,setWallyFound] = useState(false);
     const [wendaFound,setWendaFound] = useState(false);
-    setImageHeight
+    //start timer on render
     useEffect(() => {
         const interval = setInterval(() => {
             if(wallyFound == false || wendaFound == false){
@@ -31,7 +27,7 @@ export default function HomePage (){
         return () => clearInterval(interval);
     }, [wallyFound,wendaFound]);
 
-    //fetch answers
+    //fetch answers from backend
     useEffect(()=>{
         fetch("https://wheres-wally-backend.onrender.com/characters",{
         method: "GET",
@@ -44,9 +40,9 @@ export default function HomePage (){
 
     function handleImageClick(e){
         if(wallyFound && wendaFound){return}
+        //set clicked point 
         if(selectedX==null){
-
-            let scrollHeight = window.scrollY;
+            let scrollHeight = window.scrollY;//calculate amount of scroll
             const boundaryX = e.target.parentNode.offsetLeft;//distance from left of screen to image
             const boundaryY = e.target.parentNode.offsetTop;//distance from top of screen to image
             let imagePositionX,imagePositionY
@@ -59,27 +55,25 @@ export default function HomePage (){
             imagePositionX = e.clientX - boundaryX;   
             setselectedX(imagePositionX);
             setselectedY(imagePositionY)
-        }else{
+        }else{//if clicked away set as null
             setselectedX(null);
             setselectedY(null);
-            //remove box and dropdown
         }
     }
     function handleFind(e){
         const imageContainer = e.currentTarget.parentNode.parentNode.parentNode;
         let imageHeight1 = imageContainer.getBoundingClientRect().height;
-        console.log(imageHeight1)
-        setImageHeight(imageHeight1)
         let imageWidth1 = imageContainer.getBoundingClientRect().width;
+        //for use in characters found
+        setImageHeight(imageHeight1)
         setImageWidth(imageWidth1)
-        console.log(imageWidth1)
+        //character chosen
         const characterSelected = e.target.textContent;
         //check coordinates and characters against selected
         for(let i=0;i<answers.length;i++){
             if((answers[i].x*imageWidth1)/100 >= selectedX-12.5 && (answers[i].x*imageWidth1)/100 <= selectedX+12.5){
                 if((answers[i].y*imageHeight1)/100 >= selectedY-12.5 && (answers[i].y*imageHeight1)/100 <= selectedY+12.5){
                     if(answers[i].character == characterSelected){
-                        console.log(characterSelected)
                         if(characterSelected=="Wally"){
                             setWallyFound(true)
                         }
@@ -106,7 +100,6 @@ export default function HomePage (){
     return (
         <>
         <div className="homepage">
-            
             <div className="header">
                 <div>{timer}</div>
                 <h2>Wheres Wally</h2>
