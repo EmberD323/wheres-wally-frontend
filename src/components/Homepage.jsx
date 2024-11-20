@@ -52,7 +52,6 @@ export default function HomePage (){
                 imagePositionY = e.clientY - boundaryY;
             }
             imagePositionX = e.clientX - boundaryX;   
-            console.log(imagePositionX,imagePositionY)         
             setselectedX(imagePositionX);
             setselectedY(imagePositionY)
         }else{
@@ -72,7 +71,6 @@ export default function HomePage (){
                 if((answers[i].y*imageHeight)/100 >= selectedY-12.5 && (answers[i].y*imageHeight)/100 <= selectedY+12.5){
                     if(answers[i].character == characterSelected){
                         setNumberFound(numberFound+1)
-                        console.log(numberFound)
                         if(numberFound >= 1){
                             setPause(!pause)
                             setResult("You found " +characterSelected +", and won the game in a time of "+ timer +" seconds.")
@@ -98,15 +96,16 @@ export default function HomePage (){
     return (
         <>
         <div className="homepage">
+            
             <div className="header">
                 <div>{timer}</div>
                 <h2>Wheres Wally</h2>
-                <img class="characters" src={characters} alt="characters"/>
+                <img className="characters" src={characters} alt="characters"/>
             </div>
             <div>Find Wally and Wenda</div>
             <div>{result}</div>
             <div className="imageContainer">
-                <img class="wally" src={wally} alt="wheres-wally" onClick={handleImageClick}/>
+                <img className="wally" src={wally} alt="wheres-wally" onClick={handleImageClick}/>
                 <TargetBox selectedX={selectedX} selectedY={selectedY} handleFind={handleFind}></TargetBox>
             </div>
             <Form timer={timer} numberFound={numberFound}></Form>

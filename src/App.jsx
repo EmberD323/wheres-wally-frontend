@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css"
 import { Outlet } from "react-router-dom";
+import NavBar from "./components/Partials/Navbar";
 
 const App = () => {
   
@@ -18,6 +19,7 @@ const App = () => {
   // if(loading) return <p>Loading</p>
   return (
     <>
+      <NavBar></NavBar>
       <Outlet context={[]}/>
     </>
   );

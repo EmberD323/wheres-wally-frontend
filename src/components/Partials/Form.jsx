@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, } from "react";
+import { useNavigate} from "react-router-dom";
+
 import Errors from "./Errors";
+
 
 
 export default function Form ({timer,numberFound}){
     let formOpen;
     const[name,setName] = useState("");
     const[formErrors,setFormErrors] = useState(null);
-
+    const navigate = useNavigate()
     async function handleSubmit(e){
         e.preventDefault();
+        
         const response = await fetch("https://wheres-wally-backend.onrender.com/scores", {
             method: "POST",
             mode:"cors",
@@ -23,7 +27,8 @@ export default function Form ({timer,numberFound}){
             //setFormErrors(errors)
         }
         else{
-            console.log(response)
+            navigate('../scorepage');
+
         }
     }
     function handleNameChange(e){
