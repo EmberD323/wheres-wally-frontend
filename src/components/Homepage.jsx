@@ -6,11 +6,22 @@ import characters from "../assets/waldoandwenda.jpeg"
 
 
 export default function HomePage (){
-    //const [posts,setPosts,token,setToken,edit,setEdit,users,setUsers] = useOutletContext();
+    // const [timer,setTimer] = useOutletContext();
     const [selectedX,setselectedX]=useState(null);
     const [selectedY,setselectedY]=useState(null);
     const [answers,setAnswers]=useState(null);
     const [result,setResult]=useState(null)
+    const [timer, setTimer] = useState(0);
+    const [pause, setPause] = useState(false);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if(!pause){
+                setTimer(prev => prev + 1);
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [pause]);
 
     //fetch answers
     useEffect(()=>{
@@ -21,7 +32,7 @@ export default function HomePage (){
         .then((response)=>response.json())
         .then((json)=>setAnswers(json))
         .catch((error)=>console.log(error))
-    },[])
+    },[pause])
 
     function handleImageClick(e){
         if(selectedX==null){
@@ -49,22 +60,19 @@ export default function HomePage (){
         const imageContainer = e.currentTarget.parentNode.parentNode.parentNode;
         let imageHeight = imageContainer.getBoundingClientRect().height;
         let imageWidth = imageContainer.getBoundingClientRect().width;
-        console.log(answers)
-        console.log(imageHeight,imageWidth)
-        console.log(selectedX,selectedY)
-        console.log(answers[0].x)
-        console.log((answers[0].x*imageWidth)/100)
         const characterSelected = e.target.textContent;
         for(let i=0;i<answers.length;i++){
             if((answers[i].x*imageWidth)/100 >= selectedX-12.5 && (answers[i].x*imageWidth)/100 <= selectedX+12.5){
                 if((answers[i].y*imageHeight)/100 >= selectedY-12.5 && (answers[i].y*imageHeight)/100 <= selectedY+12.5){
                     if(answers[i].character == characterSelected){
                         console.log("you found me!")
+                        setPause(!pause)
+                        console.log(timer)
                         break
                     }
                     else{
                         console.log("wrong character")
-                        
+
 
                     }
                 
@@ -84,6 +92,8 @@ export default function HomePage (){
         
         <div className="homepage">
             <div className="header">
+                <div>{timer}</div>
+                
                 <h2>Wheres Wally</h2>
                 <img class="characters" src={characters} alt="characters"/>
 
