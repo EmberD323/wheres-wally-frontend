@@ -10,6 +10,7 @@ export default function HomePage (){
     const [selectedX,setselectedX]=useState(null);
     const [selectedY,setselectedY]=useState(null);
     const [answers,setAnswers]=useState(null);
+    const [result,setResult]=useState(null)
 
     //fetch answers
     useEffect(()=>{
@@ -37,8 +38,6 @@ export default function HomePage (){
     }
     function handleFind(e){
         const characterSelected = e.target.textContent;
-        console.log(answers)
-        console.log(selectedX,selectedY,characterSelected)
         for(let i=0;i<answers.length;i++){
             if(answers[i].x >= selectedX-12.5 && answers[i].x <= selectedX+12.5){
                 if(answers[i].y >= selectedY-12.5 && answers[i].y <= selectedY+12.5){
@@ -72,6 +71,7 @@ export default function HomePage (){
 
             </div>
             <div>Find Wally and Wenda</div>
+            <div>{result}</div>
             <div className="imageContainer">
                 <img class="wally" src={wally} alt="wheres-wally" onClick={handleImageClick}/>
                 <TargetBox selectedX={selectedX} selectedY={selectedY} handleFind={handleFind}></TargetBox>
