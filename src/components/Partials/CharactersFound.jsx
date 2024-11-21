@@ -3,13 +3,13 @@ export default function CharactersFound ({answers,wallyFound,wendaFound,imageHei
     if(answers ==null ||imageHeight==null || imageWidth==null  ) return;
     if(wallyFound == false && wendaFound == false  ) return;
 
-    const mystyle1 = {
-      left:answers[0].x*imageWidth/100 -12.5+"px",
-      top:answers[0].y*imageHeight/100 +"px"
+   const mystyle1 = {
+      left:answers[0].x*imageWidth/100 -12.5+"px", 
+      top:answers[0].y*imageHeight/100 -12.5+"px" 
     };
     const mystyle2 = {
         left:answers[1].x*imageWidth/100 - 12.5+"px",
-        top:answers[1].y*imageHeight/100 - 25+"px"
+        top:answers[1].y*imageHeight/100 -12.5+"px" 
       };
 
     return (
