@@ -1,14 +1,16 @@
-# React + Vite template
-npm install: eslint, react, react-router-dom,prettier,vite,vitest --save-dev,jsdom --save-dev,@testing-library/react @testing-library/jest-dom --save-dev
+# Wheres Wally - Front-end
 
-run app
-1) npm install
-2) npm run dev http://localhost:5173/
+This the front-end website for a wheres waldo project (A photo tagging app)
 
-prisma
-prisma migrate dev --name name
+# Deployed
+- https://wheres-wally-d323.netlify.app/
+# Github
+- Backend github: https://github.com/EmberD323/wheres-wally-backend
 
-double check coords
-check other screen sizes
-deploy
-readmes
+## Tech Stack
+
+- **Framework**: React, using Vite.
+- **Styling**: CSS
+- **Prisma**: As the ORM for interacting with the PostgreSQL database.
+- **PostgreSQL**:The database storing player scores and iamge data.
+
