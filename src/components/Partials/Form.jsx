@@ -50,7 +50,6 @@ export default function Form ({timer,wendaFound,wallyFound}){
 
             
             <form className="form-container" id={formOpen} >
-                <button type="cancel" onClick={handleCancel}>Cancel</button>
                 <div>Congrats you won! You found Wally and Wenda in {timer} seconds.</div>
                 <div>Enter your name below to get on the Scoreboard.</div>
                 <div className="formElements">
