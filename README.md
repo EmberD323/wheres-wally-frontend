@@ -1,6 +1,6 @@
-# Wheres Wally - Front-end
+# Wheres Wally - Frontend
 
-This the front-end website for a wheres waldo project (A photo tagging app)
+This is the frontend website for a Wheres Wally project (A photo tagging app)
 
 # Deployed
 - https://wheres-wally-d323.netlify.app/
@@ -12,5 +12,5 @@ This the front-end website for a wheres waldo project (A photo tagging app)
 - **Framework**: React, using Vite.
 - **Styling**: CSS
 - **Prisma**: As the ORM for interacting with the PostgreSQL database.
-- **PostgreSQL**:The database storing player scores and iamge data.
+- **PostgreSQL**:The database storing player scores and image data.
 
