@@ -1,9 +1,6 @@
 import { useState, } from "react";
 import { useNavigate} from "react-router-dom";
-
 import Errors from "./Errors";
-
-
 
 export default function Form ({timer,wendaFound,wallyFound}){
     let formOpen;
@@ -12,7 +9,6 @@ export default function Form ({timer,wendaFound,wallyFound}){
     const navigate = useNavigate()
     async function handleSubmit(e){
         e.preventDefault();
-        
         const response = await fetch("https://wheres-wally-backend.onrender.com/scores", {
             method: "POST",
             mode:"cors",
@@ -28,17 +24,11 @@ export default function Form ({timer,wendaFound,wallyFound}){
         }
         else{
             navigate('../scorepage');
-
         }
     }
     function handleNameChange(e){
         setName(e.target.value)
     }
-    function handleCancel(e){
-        e.preventDefault();
-        formOpen = "false";
-    }
-    
     if(wallyFound && wendaFound){
         formOpen = "true";
     }
@@ -47,20 +37,16 @@ export default function Form ({timer,wendaFound,wallyFound}){
     }
    
     return (
-
-            
             <form className="form-container" id={formOpen} >
                 <div>Congrats you won! You found Wally and Wenda in {timer} seconds.</div>
                 <div>Enter your name below to get on the Scoreboard.</div>
                 <div className="formElements">
                     <label htmlFor="name"><b>Name:</b></label>
                     <input type="text" placeholder="name" className="name" min={1} max={20} value={name} onChange={handleNameChange} required/>
-                    <button type="submit" onClick={handleSubmit}>Submit</button>
-                    
+                    <button type="submit" onClick={handleSubmit}>Submit</button> 
                 </div>
                 <Errors errors={formErrors}/>
             </form>
-
     )
 }
 

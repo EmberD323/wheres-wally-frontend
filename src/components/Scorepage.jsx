@@ -1,7 +1,5 @@
-import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ScoreCards from "./Partials/ScoreCards";
-
 
 export default function ScorePage (){
     const [loading,setLoading] = useState(true);

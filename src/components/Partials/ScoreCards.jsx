@@ -5,9 +5,7 @@ export default function ScoreCards ({scores}){
     if(scores==null)return
     if(scores.length===0){
         return(
-            <>
             <div className="noScores">No Scores yet - play the game and be the first on the board!</div>     
-            </>
         )
     }
     return (

@@ -2,13 +2,10 @@
 export default function TargetBox ({selectedX,selectedY,handleFind}){
     let positionX = selectedX - 12.5;
     let positionY = selectedY - 12.5;
-
     const mystyle = {
       left:positionX+"px",
       top:positionY+"px"
     };
-    
-    
     if(selectedX == null){
         return
     }
@@ -18,7 +15,6 @@ export default function TargetBox ({selectedX,selectedY,handleFind}){
             <div className="dropdown">
                 <div onClick={handleFind}>Wally</div>
                 <div onClick={handleFind}>Wenda</div>
-
             </div>
         </div>
 

@@ -37,10 +37,7 @@ export default function HomePage (){
         mode:"cors"
         })
         .then((response)=>response.json())
-        .then((json)=> {
-            console.log(json);
-             setAnswers(json)
-        })
+        .then((json)=> setAnswers(json))
         .catch((error)=>console.log(error))
         .finally(()=>setLoading(false));
     },[])
@@ -53,7 +50,6 @@ export default function HomePage (){
             let scrollHeight = window.scrollY;//calculate amount of scroll
             const boundaryX = e.target.parentNode.offsetLeft;//distance from left of screen to image
             const boundaryY = e.target.parentNode.offsetTop;//distance from top of screen to image
-            console.log("boundarys ", boundaryX,boundaryY)
             let imagePositionX,imagePositionY
             if(scrollHeight > 0){
                 imagePositionY = e.clientY - boundaryY +scrollHeight;
@@ -62,7 +58,6 @@ export default function HomePage (){
                 imagePositionY = e.clientY - boundaryY;
             }
             imagePositionX = e.clientX - boundaryX;
-            console.log("image point ", imagePositionX,imagePositionY)   
             setselectedX(imagePositionX);
             setselectedY(imagePositionY);
         }else{//if clicked away set as null
@@ -133,7 +128,6 @@ export default function HomePage (){
                 <CharactersFound answers={answers} wallyFound={wallyFound} wendaFound={wendaFound} imageHeight={imageHeight} imageWidth={imageWidth}/>
             </div>
             <Form timer={timer} wendaFound={wendaFound} wallyFound={wallyFound}></Form>
-            
         </div>
         </>
     )
