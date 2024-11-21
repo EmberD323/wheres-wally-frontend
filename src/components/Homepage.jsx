@@ -5,13 +5,16 @@ import CharactersFound from "./Partials/CharactersFound";
 import Form from "./Partials/Form";
 import wally from "../assets/wally.jpg"
 import characters from "../assets/waldoandwenda.jpeg"
+import loadingImage from "../assets/icons8-loading-60.png"
 
 export default function HomePage (){
     // const [timer,setTimer] = useOutletContext();
+
+    const [loading,setLoading] = useState(true);
     const [selectedX,setselectedX]=useState(null);
     const [selectedY,setselectedY]=useState(null);
     const [answers,setAnswers]=useState(null);
-    const [result,setResult]=useState(null)
+    const [result,setResult]=useState("Click on the picture to find them,quick!")
     const [timer, setTimer] = useState(0);
     const [imageHeight, setImageHeight] = useState(0);
     const [imageWidth, setImageWidth] = useState(0);
@@ -36,6 +39,7 @@ export default function HomePage (){
         .then((response)=>response.json())
         .then((json)=>  setAnswers(json))
         .catch((error)=>console.log(error))
+        .finally(()=>setLoading(false));
     },[])
 
     function handleImageClick(e){
@@ -97,16 +101,26 @@ export default function HomePage (){
             }
         }
     }
+    if(loading) return (
+        <div className="loading">
+            <div>Loading</div>
+            <img className="loadingImage" src={loadingImage} alt="loading" />
+        </div>
+    )
+
     return (
         <>
         <div className="homepage">
-            <div className="header">
-                <div>{timer}</div>
-                <h2>Wheres Wally</h2>
-                <img className="characters" src={characters} alt="characters"/>
+            <div className="timeAndChar">
+                <div className="time">Time elapsed: {timer}</div>
+                <div className="characterContainer">
+                    <img className="characters" src={characters} alt="characters"/>
+                    <div>Find Wally and Wenda</div>
+                </div>
             </div>
-            <div>Find Wally and Wenda</div>
-            <div>{result}</div>
+            <div className="resultContainer">
+                <div className="result">{result}</div>
+            </div>
             <div className="imageContainer">
                 <img className="wally" src={wally} alt="wheres-wally" onClick={handleImageClick}/>
                 <TargetBox selectedX={selectedX} selectedY={selectedY} handleFind={handleFind}></TargetBox>

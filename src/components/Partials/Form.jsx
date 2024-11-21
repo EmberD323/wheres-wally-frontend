@@ -34,6 +34,10 @@ export default function Form ({timer,wendaFound,wallyFound}){
     function handleNameChange(e){
         setName(e.target.value)
     }
+    function handleCancel(e){
+        e.preventDefault();
+        formOpen = "false";
+    }
     
     if(wallyFound && wendaFound){
         formOpen = "true";
@@ -45,11 +49,16 @@ export default function Form ({timer,wendaFound,wallyFound}){
     return (
 
             
-            <form className="form-container" id={formOpen} onSubmit={handleSubmit}>
-                <div>Congrats you won! You found Wally and Wenda in {timer} seconds. Enter your name below to get on the Scoreboard.</div>
-                <label htmlFor="name"><b>Name</b></label>
-                <input type="text" placeholder="name" className="name" value={name} onChange={handleNameChange} required/>
-                <button type="submit">Submit</button>
+            <form className="form-container" id={formOpen} >
+                <button type="cancel" onClick={handleCancel}>Cancel</button>
+                <div>Congrats you won! You found Wally and Wenda in {timer} seconds.</div>
+                <div>Enter your name below to get on the Scoreboard.</div>
+                <div className="formElements">
+                    <label htmlFor="name"><b>Name:</b></label>
+                    <input type="text" placeholder="name" className="name" min={1} max={20} value={name} onChange={handleNameChange} required/>
+                    <button type="submit" onClick={handleSubmit}>Submit</button>
+                    
+                </div>
                 <Errors errors={formErrors}/>
             </form>
 

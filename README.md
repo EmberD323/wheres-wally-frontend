@@ -7,3 +7,8 @@ run app
 
 prisma
 prisma migrate dev --name name
+
+double check coords
+check other screen sizes
+deploy
+readmes

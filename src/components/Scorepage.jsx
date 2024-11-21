@@ -4,7 +4,7 @@ import ScoreCards from "./Partials/ScoreCards";
 
 
 export default function ScorePage (){
-    //const [posts,setPosts,token,setToken,edit,setEdit,users,setUsers] = useOutletContext();
+    const [loading,setLoading] = useState(true);
     const [scores,setScores]=useState(null);
 
     //fetch scores
@@ -16,9 +16,12 @@ export default function ScorePage (){
         .then((response)=>response.json())
         .then((json)=>setScores(json))
         .catch((error)=>console.log(error))
+        .finally(()=>setLoading(false));
+
     },[])
 
-  
+    if(loading) return <p>Loading</p>
+
     return (
         <div className="scorepage">
             <h2>Scoreboard</h2>
